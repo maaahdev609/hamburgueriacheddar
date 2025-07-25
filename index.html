@@ -1,0 +1,2679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamburgueria Cheddar - Os Melhores Hambúrgueres da Cidade</title>
+    <meta name="description" content="Descubra os hambúrgueres mais saborosos da cidade na Hamburgueria Cheddar. Especialistas em cheddar derretido e sabores únicos.">
+    <meta name="keywords" content="hambúrguer, cheddar, lanche, delivery, fast food">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Barlow", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            overflow-x: hidden;
+            word-wrap: break-word;
+        }
+
+        /* Container principal responsivo */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header Styles - Limpo sem imagens */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #ff7f00;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #ff7f00;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff7f00;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            color: #ff7f00;
+            transform: scale(1.2);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section - Logo como foco principal */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            padding: 80px 20px 0 20px; /* Adicionado padding-top de 80px */
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        /* Tipografia responsiva com clamp() */
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-title::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #ff7f00;
+            margin: 1rem 0;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        /* Botões responsivos */
+        .cta-button {
+            background: linear-gradient(45deg, #ff7f00, #ff9500);
+            color: white;
+            border: none;
+            padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+            font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: auto;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 127, 0, 0.4);
+        }
+
+        /* Logo da hamburgueria como imagem principal */
+        .hero-logo {
+            flex: 1;
+            text-align: center;
+            z-index: 2;
+        }
+
+        /* Imagens responsivas */
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        .hero-logo img {
+            max-width: 100%;
+            height: auto;
+            max-height: 700px;
+            filter: drop-shadow(0 20px 40px rgba(255, 127, 0, 0.3));
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+
+        .hero-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 5rem 0;
+            background: #f8f8f8;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(1rem, 3vw, 2rem);
+            margin-top: 3rem;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 1.5rem;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 127, 0, 0.2);
+        }
+
+        .menu-content {
+            padding: 0;
+        }
+
+        .menu-content h3 {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-content p {
+            color: #666;
+            line-height: 1.6;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            padding: 5rem 0;
+            background: #000;
+            color: white;
+        }
+
+        .feedback-section .section-title {
+            color: white;
+        }
+
+        .feedback-carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .feedback-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .feedback-card {
+            min-width: 100%;
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-card.active {
+            border-color: #ff7f00;
+        }
+
+        .stars {
+            color: #ff7f00;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feedback-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .customer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .customer img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 2px solid #ff7f00;
+            object-fit: cover;
+        }
+
+        .customer-info {
+            text-align: left;
+        }
+
+        .customer h4 {
+            color: #ff7f00;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .customer span {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: #ff7f00;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-btn:hover {
+            background: #ff9500;
+            transform: scale(1.1);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            background: #f8f8f8;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            color: #ff7f00;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .contact-item h4 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: #666;
+            margin: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: #ff7f00;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #ff9500;
+            transform: scale(1.1);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff7f00;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* Botões responsivos */
+        .submit-btn {
+            background: linear-gradient(45deg, #ff7f00, #ff9500);
+            color: white;
+            border: none;
+            padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 127, 0, 0.3);
+        }
+
+        /* Footer - Compacto e sem imagens */
+        .footer {
+            background: #000;
+            color: white;
+            padding: 2rem 0 1rem; /* Reduzido de 3rem para 2rem */
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduzido de 250px para 200px */
+            gap: 1.5rem; /* Reduzido de 2rem para 1.5rem */
+            margin-bottom: 1.5rem; /* Reduzido de 2rem para 1.5rem */
+        }
+
+        .footer-brand h3 {
+            color: #ff7f00;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem; /* Tamanho reduzido */
+        }
+
+        .footer-brand p {
+            color: #ccc;
+            font-size: 0.9rem; /* Tamanho reduzido */
+        }
+
+        .footer-links h4 {
+            color: #ff7f00;
+            margin-bottom: 0.8rem; /* Reduzido */
+            font-size: 1rem; /* Tamanho reduzido */
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.3rem; /* Espaçamento reduzido */
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem; /* Tamanho reduzido */
+        }
+
+        .footer-links a:hover {
+            color: #ff7f00;
+        }
+
+        .footer-social h4 {
+            color: #ff7f00;
+            margin-bottom: 0.8rem; /* Reduzido */
+            font-size: 1rem; /* Tamanho reduzido */
+        }
+
+        .footer-social .social-icons {
+            display: flex;
+            gap: 0.8rem; /* Reduzido */
+        }
+
+        .footer-social .social-icons a {
+            color: #ccc;
+            font-size: 1.3rem; /* Reduzido de 1.5rem */
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-social .social-icons a:hover {
+            color: #ff7f00;
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem; /* Reduzido de 2rem */
+            border-top: 1px solid #333;
+            color: #ccc;
+            font-size: 0.9rem; /* Tamanho reduzido */
+        }
+
+        /* Evitar overflow */
+        body {
+            font-family: "Barlow", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            overflow-x: hidden;
+            word-wrap: break-word;
+        }
+
+        /* Media Queries Responsivas */
+
+        /* Mobile First - até 480px */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 100px 16px 2rem; /* Aumentado padding-top para 100px no mobile */
+                min-height: 100vh;
+            }
+            
+            .hero-logo {
+                margin-top: 2rem;
+                order: 2;
+            }
+            
+            .hero-content {
+                order: 1;
+                max-width: 100%;
+            }
+            
+            .hero-logo img {
+                max-height: 300px;
+                max-width: 280px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .menu-item {
+                margin: 0;
+                padding: 1.2rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.95);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .customer {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .customer-info {
+                text-align: center;
+            }
+        }
+
+        /* Tablet - 481px até 768px */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 90px 24px 2rem; /* Ajustado padding-top para 90px no tablet */
+            }
+            
+            .hero-logo {
+                margin-top: 2rem;
+            }
+            
+            .hero-logo img {
+                max-height: 450px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                text-align: left;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.95);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+        }
+
+        /* Desktop - 769px até 1024px */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                padding: 0 32px;
+            }
+            
+            .hero {
+                padding: 0 32px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Desktop Large - 1025px até 1440px */
+        @media (min-width: 1025px) and (max-width: 1440px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* TV/Ultra Wide - acima de 1441px */
+        @media (min-width: 1441px) {
+            .container {
+                max-width: 1400px;
+            }
+            
+            .hero-logo img {
+                max-height: 800px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2.5rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+/* Estilos do Sistema de Compra - SEM SCROLL HORIZONTAL */
+
+/* Botão Adicionar ao Carrinho */
+.add-to-cart-btn {
+    background: #FFA500;
+    color: #000000;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(255, 165, 0, 0.25);
+}
+
+.add-to-cart-btn:hover {
+    background: #e6940a;
+    transform: scale(1.03);
+    box-shadow: 0 6px 16px rgba(255, 165, 0, 0.35);
+}
+
+.add-to-cart-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Botão Flutuante do Carrinho */
+.floating-cart {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 72px;
+    height: 72px;
+    background: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.floating-cart:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.floating-cart svg {
+    color: #FFFFFF;
+    width: 24px;
+    height: 24px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #FFA500;
+    color: #000000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: "Barlow", sans-serif;
+}
+
+.cart-badge.hidden {
+    display: none;
+}
+
+/* Animação do carrinho */
+.floating-cart.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Sidebar do Carrinho - SEM OVERFLOW HORIZONTAL */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: #000000;
+    z-index: 1002;
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    font-family: "Barlow", sans-serif;
+    overflow-x: hidden; /* CRÍTICO: Eliminar scroll horizontal */
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-header {
+    padding: 24px;
+    border-bottom: 1px solid #2B2B2B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.cart-header h3 {
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.close-cart:hover {
+    background: #2B2B2B;
+}
+
+.cart-items {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden; /* CRÍTICO: Eliminar scroll horizontal */
+    min-height: 0;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #FFFFFF;
+    padding: 40px 0;
+}
+
+.empty-cart p:first-child {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.empty-cart p:last-child {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Item do Carrinho - LARGURA CONTROLADA */
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid #2B2B2B;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* CRÍTICO: Prevenir overflow */
+    box-sizing: border-box;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-image {
+    width: 50px;
+    height: 50px;
+    background: #2B2B2B;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.cart-item-details {
+    flex: 1;
+    min-width: 0; /* CRÍTICO: Permitir shrinking */
+    overflow: hidden;
+}
+
+.cart-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 8px;
+    width: 100%;
+}
+
+.cart-item-name {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.95rem;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.edit-item-btn {
+    background: none;
+    border: none;
+    color: #FFA500;
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.edit-item-btn:hover {
+    background: rgba(255, 165, 0, 0.1);
+}
+
+.edit-item-btn svg {
+    width: 10px;
+    height: 10px;
+}
+
+.cart-item-price {
+    color: #FFA500;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #2B2B2B;
+    border-radius: 8px;
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+.quantity-btn {
+    background: #FFA500;
+    color: #000000;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.quantity-btn:hover {
+    background: #e6940a;
+}
+
+.quantity-display {
+    color: #FFFFFF;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    min-width: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.remove-item:hover {
+    color: #A30000;
+    background: rgba(163, 0, 0, 0.1);
+}
+
+.remove-item svg {
+    width: 14px;
+    height: 14px;
+}
+
+.cart-footer {
+    padding: 24px;
+    border-top: 1px solid #2B2B2B;
+    flex-shrink: 0;
+}
+
+.cart-total {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.cart-total span {
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.checkout-btn {
+    background: #118C4F;
+    color: #FFFFFF;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.checkout-btn:hover:not(:disabled) {
+    background: #0f7a43;
+    box-shadow: 0 4px 16px rgba(17, 140, 79, 0.3);
+}
+
+.checkout-btn:disabled {
+    background: #2B2B2B;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Editor de Item - OTIMIZADO PARA LARGURA FIXA */
+.item-editor {
+    background: #1a1a1a;
+    border-radius: 12px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid #444;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* CRÍTICO: Prevenir overflow */
+    box-sizing: border-box;
+}
+
+.item-editor.hidden {
+    display: none;
+}
+
+.editor-section {
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.editor-section:last-child {
+    margin-bottom: 0;
+}
+
+.editor-title {
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+}
+
+.ingredients-list,
+.extras-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.ingredient-item,
+.extra-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    min-height: 32px;
+    width: 100%;
+    max-width: 100%;
+    gap: 8px;
+}
+
+.ingredient-checkbox,
+.extra-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #FFFFFF;
+    font-size: 0.85rem;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0; /* CRÍTICO: Permitir shrinking */
+    overflow: hidden;
+}
+
+.ingredient-checkbox input,
+.extra-checkbox input {
+    width: 14px;
+    height: 14px;
+    accent-color: #FFA500;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.ingredient-checkbox span,
+.extra-checkbox span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+}
+
+.extra-price {
+    color: #FFA500;
+    font-weight: 600;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.editor-subtotal {
+    background: #333;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 12px 0;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.editor-subtotal span {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.editor-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 36px;
+    box-sizing: border-box;
+}
+
+.editor-btn.cancel {
+    background: #666;
+    color: #FFFFFF;
+}
+
+.editor-btn.cancel:hover {
+    background: #777;
+}
+
+.editor-btn.apply {
+    background: #FFA500;
+    color: #000000;
+}
+
+.editor-btn.apply:hover {
+    background: #e6940a;
+}
+
+/* Overlay */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.cart-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Checkout Modal */
+.checkout-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1003;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.checkout-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.checkout-content {
+    background: #000000;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-header {
+    padding: 24px;
+    border-bottom: 1px solid #2B2B2B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-header h2 {
+    color: #FFFFFF;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.close-checkout {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.close-checkout:hover {
+    background: #2B2B2B;
+}
+
+.checkout-body {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.checkout-form h3 {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+}
+
+.checkout-input {
+    width: 100%;
+    padding: 16px;
+    background: #2B2B2B;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-family: "Barlow", sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+}
+
+.checkout-input::placeholder {
+    color: #666;
+}
+
+.checkout-input:focus {
+    outline: none;
+    border-color: #FFA500;
+    background: #333;
+}
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.payment-option {
+    background: #2B2B2B;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #FFFFFF;
+}
+
+.payment-option:hover {
+    border-color: #FFA500;
+}
+
+.payment-option.selected {
+    border-color: #FFA500;
+    background: rgba(255, 165, 0, 0.1);
+}
+
+.payment-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.order-summary {
+    background: #2B2B2B;
+    border-radius: 12px;
+    padding: 24px;
+    height: fit-content;
+}
+
+.order-summary h3 {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #444;
+    color: #FFFFFF;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-total {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid #FFA500;
+    text-align: center;
+}
+
+.summary-total span {
+    color: #FFFFFF;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.confirm-order-btn {
+    background: #118C4F;
+    color: #FFFFFF;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.confirm-order-btn:hover {
+    background: #0f7a43;
+    box-shadow: 0 4px 16px rgba(17, 140, 79, 0.3);
+}
+
+.checkout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1002;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.checkout-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsividade Mobile - SEM SCROLL HORIZONTAL */
+@media (max-width: 768px) {
+    .floating-cart {
+        width: 56px;
+        height: 56px;
+        bottom: 16px;
+        right: 16px;
+    }
+    
+    .floating-cart svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .cart-sidebar {
+        width: 100vw;
+        right: -100vw;
+    }
+    
+    .cart-items {
+        padding: 16px;
+    }
+    
+    .cart-item {
+        padding: 12px 0;
+    }
+    
+    .cart-item-controls {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .quantity-control {
+        flex-shrink: 0;
+    }
+    
+    .item-editor {
+        padding: 10px;
+        margin-top: 8px;
+    }
+    
+    .editor-actions {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .editor-btn {
+        width: 100%;
+        min-height: 36px;
+        padding: 8px 12px;
+    }
+    
+    .ingredient-item,
+    .extra-item {
+        min-height: 30px;
+        padding: 4px 0;
+    }
+    
+    .checkout-body {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .order-summary {
+        order: -1;
+    }
+    
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 360px) {
+    .cart-header,
+    .cart-items,
+    .cart-footer {
+        padding: 12px;
+    }
+    
+    .floating-cart {
+        bottom: 12px;
+        right: 12px;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .cart-item-name {
+        font-size: 0.85rem;
+    }
+    
+    .edit-item-btn {
+        font-size: 0.7rem;
+        padding: 2px 4px;
+    }
+    
+    .quantity-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+    }
+    
+    .quantity-display {
+        font-size: 0.8rem;
+        min-width: 18px;
+    }
+}
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Limpo sem imagens -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#home" class="logo">Hamburgueria Cheddar</a>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link">Início</a></li>
+                    <li><a href="#menu" class="nav-link">Cardápio</a></li>
+                    <li><a href="#feedback" class="nav-link">Avaliações</a></li>
+                    <li><a href="#contact" class="nav-link">Contato</a></li>
+                </ul>
+                <div class="social-icons">
+                    
+                    <a href="https://linkedin.com/in/mariaclara-info" target="_blank" class="social-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://wa.me/5517996492656" target="_blank" class="social-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section - Logo como foco principal -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">O Melhor Cheddar da Cidade</h1>
+            <p class="hero-subtitle">Hambúrgueres artesanais com cheddar derretido que vai fazer você se apaixonar</p>
+            <button class="cta-button" onclick="scrollToSection('menu')">
+                Ver Cardápio
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+        <div class="hero-logo">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20250619_2209_Logo%20Hamb%C3%BArguer%20Cheddar_simple_compose_01jy5e24tyfy0vt0q549m54s3q%20%281%29-gS0dUF1UTB4ZJoq9oDTbqI4pfDuMM7.png" alt="Logo Cheddar Burgers">
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2 class="section-title">Nosso Cardápio</h2>
+            <p class="section-subtitle">
+                Cada hambúrguer é uma obra de arte com cheddar derretido
+            </p>
+            
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <h3>Cheddar Classic</h3>
+                        <p>Hambúrguer artesanal, cheddar derretido, alface, tomate e nossa maionese especial</p>
+                        <span class="price">R$ 25,90</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cheddar Classic', 25.90)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 22C10.1 22 11 21.1 11 20C11 18.9 10.1 18 9 18C7.9 18 7 18.9 7 20C7 21.1 7.9 22 9 22ZM20 22C21.1 22 22 21.1 22 20C22 18.9 21.1 18 20 18C18.9 18 18 18.9 18 20C18 21.1 18.9 22 20 22Z" fill="currentColor"/>
+                            </svg>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <h3>Duplo Cheddar</h3>
+                        <p>Dois hambúrgueres, dupla dose de cheddar, bacon crocante e cebola caramelizada</p>
+                        <span class="price">R$ 32,90</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Duplo Cheddar', 32.90)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 22C10.1 22 11 21.1 11 20C11 18.9 10.1 18 9 18C7.9 18 7 18.9 7 20C7 21.1 7.9 22 9 22ZM20 22C21.1 22 22 21.1 22 20C22 18.9 21.1 18 20 18C18.9 18 18 18.9 18 20C18 21.1 18.9 22 20 22Z" fill="currentColor"/>
+                            </svg>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <h3>Cheddar Bacon</h3>
+                        <p>Hambúrguer suculento, cheddar cremoso, bacon defumado e molho barbecue</p>
+                         <span class="price">R$ 28,90</span>
+                         <button class="add-to-cart-btn" onclick="addToCart('Cheddar Bacon', 28.90)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 22C10.1 22 11 21.1 11 20C11 18.9 10.1 18 9 18C7.9 18 7 18.9 7 20C7 21.1 7.9 22 9 22ZM20 22C21.1 22 22 21.1 22 20C22 18.9 21.1 18 20 18C18.9 18 18 18.9 18 20C18 21.1 18.9 22 20 22Z" fill="currentColor"/>
+                            </svg>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <h3>Cheddar Veggie</h3>
+                        <p>Hambúrguer vegetal, cheddar vegano, rúcula, tomate seco e pesto</p>
+                        <span class="price">R$ 24,90</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cheddar Veggie', 24.90)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 22C10.1 22 11 21.1 11 20C11 18.9 10.1 18 9 18C7.9 18 7 18.9 7 20C7 21.1 7.9 22 9 22ZM20 22C21.1 22 22 21.1 22 20C22 18.9 21.1 18 20 18C18.9 18 18 18.9 18 20C18 21.1 18.9 22 20 22Z" fill="currentColor"/>
+                            </svg>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <h3>Cheddar Supreme</h3>
+                        <p>Hambúrguer premium, cheddar trufado, cogumelos grelhados e molho especial</p>
+                        <span class="price">R$ 35,90</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cheddar Supreme', 35.90)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 22C10.1 22 11 21.1 11 20C11 18.9 10.1 18 9 18C7.9 18 7 18.9 7 20C7 21.1 7.9 22 9 22ZM20 22C21.1 22 22 21.1 22 20C22 18.9 21.1 18 20 18C18.9 18 18 18.9 18 20C18 21.1 18.9 22 20 22Z" fill="currentColor"/>
+                            </svg>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-content">
+                        <h3>Cheddar Spicy</h3>
+                        <p>Hambúrguer temperado, cheddar picante, jalapeños e molho chipotle</p>
+                        <span class="price">R$ 29,90</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cheddar Spicy', 29.90)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 22C10.1 22 11 21.1 11 20C11 18.9 10.1 18 9 18C7.9 18 7 18.9 7 20C7 21.1 7.9 22 9 22ZM20 22C21.1 22 22 21.1 22 20C22 18.9 21.1 18 20 18C18.9 18 18 18.9 18 20C18 21.1 18.9 22 20 22Z" fill="currentColor"/>
+                            </svg>
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback" class="feedback-section">
+        <div class="container">
+            <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+            
+            <div class="feedback-carousel">
+                <div class="feedback-track" id="feedback-track">
+                    <div class="feedback-card active">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"O melhor hambúrguer que já comi! O cheddar derretido é simplesmente perfeito. Virei cliente fiel!"</p>
+                        <div class="customer">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/undraw_chill-guy-avatar_tqsm-1mWRZYlfx7jjnBcqaPhTwLXx31TrVB.png" alt="Maria Silva">
+                            <div class="customer-info">
+                                <h4>Maria Silva</h4>
+                                <span>Cliente desde 2023</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Qualidade excepcional! O Duplo Cheddar é uma experiência única. Recomendo para todos!"</p>
+                        <div class="customer">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/undraw_chill-guy-avatar_tqsm-1mWRZYlfx7jjnBcqaPhTwLXx31TrVB.png" alt="João Santos">
+                            <div class="customer-info">
+                                <h4>João Santos</h4>
+                                <span>Cliente desde 2022</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Atendimento impecável e sabor incrível! O cheddar é realmente especial. Parabéns pela qualidade!"</p>
+                        <div class="customer">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/undraw_chill-guy-avatar_tqsm-1mWRZYlfx7jjnBcqaPhTwLXx31TrVB.png" alt="Ana Costa">
+                            <div class="customer-info">
+                                <h4>Ana Costa</h4>
+                                <span>Cliente desde 2023</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev" onclick="changeSlide(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next" onclick="changeSlide(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Fale Conosco</h3>
+                    <p>Estamos sempre prontos para atender você com o melhor atendimento!</p>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Endereço</h4>
+                            <p>Rua do Cheddar, 123 - Centro<br>São Paulo, SP - 01234-567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>(17) 99649-2656</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Horário</h4>
+                            <p>Seg - Dom: 18h às 23h</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        
+                        <a href="https://linkedin.com/in/mariaclara-info" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://wa.me/5517996492656" target="_blank" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <h3>Envie sua Mensagem</h3>
+                    
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Seu Nome" required>
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Seu E-mail" required>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Sua Mensagem" rows="5" required></textarea>
+                        <span class="error-message" id="messageError"></span>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        Enviar Mensagem
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Compacto e sem imagens -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Hamburgueria Cheddar</h3>
+                    <p>O melhor cheddar da cidade</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#menu">Cardápio</a></li>
+                        <li><a href="#feedback">Avaliações</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>Siga-nos</h4>
+                    <div class="social-icons">
+                        
+                        <a href="https://linkedin.com/in/mariaclara-info" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://wa.me/5517996492656" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Hamburgueria Cheddar. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do Carrinho -->
+    <div class="floating-cart" id="floatingCart" onclick="toggleCart()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 22C10.1 22 11 21.1 11 20C11 18.9 10.1 18 9 18C7.9 18 7 18.9 7 20C7 21.1 7.9 22 9 22ZM20 22C21.1 22 22 21.1 22 20C22 18.9 21.1 18 20 18C18.9 18 18 18.9 18 20C18 21.1 18.9 22 20 22Z" fill="currentColor"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+
+    <!-- Sidebar do Carrinho -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Seu Pedido</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <p>Seu carrinho está vazio</p>
+                <p>Adicione alguns hambúrgueres deliciosos!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total do Pedido: <strong id="cartTotal">R$ 0,00</strong></span>
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()" id="checkoutBtn" disabled>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Finalizar Pedido
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay do Carrinho -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- Tela de Checkout -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>Finalizar Pedido</h2>
+                <button class="close-checkout" onclick="closeCheckout()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="checkout-body">
+                <div class="checkout-form">
+                    <h3>Dados de Entrega</h3>
+                    <div class="form-group">
+                        <input type="text" placeholder="Nome completo" class="checkout-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Telefone" class="checkout-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Endereço completo" class="checkout-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Complemento (opcional)" class="checkout-input">
+                    </div>
+                    
+                    <h3>Forma de Pagamento</h3>
+                    <div class="payment-methods">
+                        <div class="payment-option" onclick="selectPayment('pix')">
+                            <div class="payment-icon">💳</div>
+                            <span>PIX</span>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('card')">
+                            <div class="payment-icon">💳</div>
+                            <span>Cartão</span>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('money')">
+                            <div class="payment-icon">💰</div>
+                            <span>Dinheiro</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-summary">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="summary-items" id="summaryItems">
+                        <!-- Itens serão inseridos aqui via JavaScript -->
+                    </div>
+                    <div class="summary-total">
+                        <span>Total: <strong id="summaryTotal">R$ 0,00</strong></span>
+                    </div>
+                    <button class="confirm-order-btn" onclick="confirmOrder()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Confirmar Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay do Checkout -->
+    <div class="checkout-overlay" id="checkoutOverlay" onclick="closeCheckout()"></div>
+
+    <script>
+    // Mobile Navigation Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(n =>
+        n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        })
+    );
+
+    // Smooth scrolling for navigation links
+    function scrollToSection(sectionId) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+
+    // Add click event to all nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            scrollToSection(targetId);
+        });
+    });
+
+    // Header background change on scroll
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 100) {
+            header.style.background = 'rgba(0, 0, 0, 0.98)';
+        } else {
+            header.style.background = 'rgba(0, 0, 0, 0.95)';
+        }
+    });
+
+    // Feedback Carousel
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.feedback-card');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+
+        const track = document.getElementById('feedback-track');
+        track.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function changeSlide(direction) {
+        currentSlide += direction;
+
+        if (currentSlide >= totalSlides) {
+            currentSlide = 0;
+        } else if (currentSlide < 0) {
+            currentSlide = totalSlides - 1;
+        }
+
+        showSlide(currentSlide);
+    }
+
+    // Auto-rotate feedback carousel
+    setInterval(() => {
+        changeSlide(1);
+    }, 5000);
+
+    // Form Validation
+    const contactForm = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+
+    // Validation functions
+    function validateName(name) {
+        return name.trim().length >= 2;
+    }
+
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function validateMessage(message) {
+        return message.trim().length >= 10;
+    }
+
+    function showError(inputId, message) {
+        const errorElement = document.getElementById(inputId + 'Error');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function hideError(inputId) {
+        const errorElement = document.getElementById(inputId + 'Error');
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
+    }
+
+    // Real-time validation
+    nameInput.addEventListener('blur', () => {
+        if (!validateName(nameInput.value)) {
+            showError('name', 'Nome deve ter pelo menos 2 caracteres');
+        } else {
+            hideError('name');
+        }
+    });
+
+    emailInput.addEventListener('blur', () => {
+        if (!validateEmail(emailInput.value)) {
+            showError('email', 'Por favor, insira um e-mail válido');
+        } else {
+            hideError('email');
+        }
+    });
+
+    messageInput.addEventListener('blur', () => {
+        if (!validateMessage(messageInput.value)) {
+            showError('message', 'Mensagem deve ter pelo menos 10 caracteres');
+        } else {
+            hideError('message');
+        }
+    });
+
+    // Form submission
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = nameInput.value;
+        const email = emailInput.value;
+        const message = messageInput.value;
+
+        let isValid = true;
+
+        // Validate all fields
+        if (!validateName(name)) {
+            showError('name', 'Nome deve ter pelo menos 2 caracteres');
+            isValid = false;
+        } else {
+            hideError('name');
+        }
+
+        if (!validateEmail(email)) {
+            showError('email', 'Por favor, insira um e-mail válido');
+            isValid = false;
+        } else {
+            hideError('email');
+        }
+
+        if (!validateMessage(message)) {
+            showError('message', 'Mensagem deve ter pelo menos 10 caracteres');
+            isValid = false;
+        } else {
+            hideError('message');
+        }
+
+        if (isValid) {
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'Enviando...';
+            submitBtn.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                contactForm.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+    });
+
+    // Sistema de Compra
+    let cart = [];
+    let cartTotal = 0;
+
+    // Dados dos ingredientes e adicionais para cada produto
+    const productData = {
+        'Cheddar Classic': {
+            ingredients: ['Pão Brioche', 'Hambúrguer Artesanal', 'Cheddar Derretido', 'Alface', 'Tomate', 'Maionese Especial'],
+            extras: [
+                { name: 'Bacon Crocante', price: 4.00 },
+                { name: 'Ovo Frito', price: 3.00 },
+                { name: 'Mais Cheddar', price: 5.00 },
+                { name: 'Molho Especial Extra', price: 2.00 }
+            ]
+        },
+        'Duplo Cheddar': {
+            ingredients: ['Pão Brioche', 'Dois Hambúrgueres', 'Dupla Dose de Cheddar', 'Bacon Crocante', 'Cebola Caramelizada'],
+            extras: [
+                { name: 'Terceiro Hambúrguer', price: 8.00 },
+                { name: 'Ovo Frito', price: 3.00 },
+                { name: 'Mais Cheddar', price: 5.00 },
+                { name: 'Molho Especial Extra', price: 2.00 }
+            ]
+        },
+        'Cheddar Bacon': {
+            ingredients: ['Pão Brioche', 'Hambúrguer Suculento', 'Cheddar Cremoso', 'Bacon Defumado', 'Molho Barbecue'],
+            extras: [
+                { name: 'Mais Bacon', price: 4.00 },
+                { name: 'Ovo Frito', price: 3.00 },
+                { name: 'Mais Cheddar', price: 5.00 },
+                { name: 'Cebola Caramelizada', price: 3.00 }
+            ]
+        },
+        'Cheddar Veggie': {
+            ingredients: ['Pão Integral', 'Hambúrguer Vegetal', 'Cheddar Vegano', 'Rúcula', 'Tomate Seco', 'Pesto'],
+            extras: [
+                { name: 'Abacate', price: 4.00 },
+                { name: 'Cogumelos Grelhados', price: 3.50 },
+                { name: 'Mais Cheddar Vegano', price: 5.00 },
+                { name: 'Molho Tahine', price: 2.50 }
+            ]
+        },
+        'Cheddar Supreme': {
+            ingredients: ['Pão Brioche Premium', 'Hambúrguer Premium', 'Cheddar Trufado', 'Cogumelos Grelhados', 'Molho Especial'],
+            extras: [
+                { name: 'Bacon Gourmet', price: 6.00 },
+                { name: 'Ovo de Codorna', price: 4.00 },
+                { name: 'Mais Cheddar Trufado', price: 8.00 },
+                { name: 'Rúcula Premium', price: 3.00 }
+            ]
+        },
+        'Cheddar Spicy': {
+            ingredients: ['Pão Brioche', 'Hambúrguer Temperado', 'Cheddar Picante', 'Jalapeños', 'Molho Chipotle'],
+            extras: [
+                { name: 'Mais Jalapeños', price: 2.00 },
+                { name: 'Bacon Crocante', price: 4.00 },
+                { name: 'Mais Cheddar Picante', price: 5.00 },
+                { name: 'Pimenta Habanero', price: 1.50 }
+            ]
+        }
+    };
+
+    function addToCart(name, price) {
+        const existingItem = cart.find(item => item.name === name);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: name,
+                price: price,
+                quantity: 1,
+                removedIngredients: [],
+                addedExtras: []
+            });
+        }
+        
+        updateCartUI();
+        animateCartButton();
+        
+        // Abrir carrinho automaticamente após adicionar item
+        setTimeout(() => {
+            toggleCart();
+        }, 300);
+    }
+
+    function removeFromCart(name) {
+        cart = cart.filter(item => item.name !== name);
+        updateCartUI();
+    }
+
+    function updateQuantity(name, change) {
+        const item = cart.find(item => item.name === name);
+        if (item) {
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                removeFromCart(name);
+            } else {
+                updateCartUI();
+            }
+        }
+    }
+
+    function calculateItemPrice(item) {
+        let basePrice = item.price;
+        let extrasPrice = item.addedExtras.reduce((sum, extra) => sum + extra.price, 0);
+        return (basePrice + extrasPrice) * item.quantity;
+    }
+
+    function updateCartUI() {
+        const cartBadge = document.getElementById('cartBadge');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        
+        // Atualizar badge
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartBadge.textContent = totalItems;
+        cartBadge.classList.toggle('hidden', totalItems === 0);
+        
+        // Calcular total
+        const total = cart.reduce((sum, item) => sum + calculateItemPrice(item), 0);
+        cartTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        
+        // Atualizar itens do carrinho
+        if (cart.length === 0) {
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <p>Seu carrinho está vazio</p>
+                    <p>Adicione alguns hambúrgueres deliciosos!</p>
+                </div>
+            `;
+            checkoutBtn.disabled = true;
+        } else {
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">🍔</div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-header">
+                            <div class="cart-item-name">${item.name}</div>
+                            <button class="edit-item-btn" onclick="toggleItemEditor('${item.name}')">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 2.50023C18.8978 2.1024 19.4374 1.87891 20 1.87891C20.5626 1.87891 21.1022 2.1024 21.5 2.50023C21.8978 2.89805 22.1213 3.43762 22.1213 4.00023C22.1213 4.56284 21.8978 5.1024 21.5 5.50023L12 15.0002L8 16.0002L9 12.0002L18.5 2.50023Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Editar
+                            </button>
+                        </div>
+                        <div class="cart-item-price">R$ ${calculateItemPrice(item).toFixed(2).replace('.', ',')}</div>
+                        <div class="item-editor hidden" id="editor-${item.name.replace(/\s+/g, '-')}">
+                            <div class="editor-section">
+                                <div class="editor-title">Ingredientes</div>
+                                <div class="ingredients-list">
+                                    ${productData[item.name].ingredients.map(ingredient => `
+                                        <div class="ingredient-item">
+                                            <label class="ingredient-checkbox">
+                                                <input type="checkbox" checked onchange="toggleIngredient('${item.name}', '${ingredient}')">
+                                                <span>${ingredient}</span>
+                                            </label>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="editor-section">
+                                <div class="editor-title">Adicionais (+ R$)</div>
+                                <div class="extras-list">
+                                    ${productData[item.name].extras.map(extra => `
+                                        <div class="extra-item">
+                                            <label class="extra-checkbox">
+                                                <input type="checkbox" onchange="toggleExtra('${item.name}', '${extra.name}', ${extra.price})">
+                                                <span>${extra.name}</span>
+                                            </label>
+                                            <span class="extra-price">R$ ${extra.price.toFixed(2).replace('.', ',')}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="editor-subtotal">
+                                <span>Subtotal: R$ ${calculateItemPrice(item).toFixed(2).replace('.', ',')}</span>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn cancel" onclick="cancelItemEdit('${item.name}')">Cancelar</button>
+                                <button class="editor-btn apply" onclick="applyItemEdit('${item.name}')">Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity('${item.name}', -1)">-</button>
+                            <span class="quantity-display">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity('${item.name}', 1)">+</button>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart('${item.name}')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            checkoutBtn.disabled = false;
+        }
+    }
+
+    function toggleItemEditor(itemName) {
+        const editorId = `editor-${itemName.replace(/\s+/g, '-')}`;
+        const editor = document.getElementById(editorId);
+        
+        // Fechar outros editores
+        document.querySelectorAll('.item-editor').forEach(e => {
+            if (e.id !== editorId) {
+                e.classList.add('hidden');
+            }
+        });
+        
+        editor.classList.toggle('hidden');
+    }
+
+    function toggleIngredient(itemName, ingredient) {
+        const item = cart.find(i => i.name === itemName);
+        if (!item) return;
+        
+        const index = item.removedIngredients.indexOf(ingredient);
+        if (index > -1) {
+            item.removedIngredients.splice(index, 1);
+        } else {
+            item.removedIngredients.push(ingredient);
+        }
+    }
+
+    function toggleExtra(itemName, extraName, extraPrice) {
+        const item = cart.find(i => i.name === itemName);
+        if (!item) return;
+        
+        const existingExtra = item.addedExtras.find(e => e.name === extraName);
+        if (existingExtra) {
+            item.addedExtras = item.addedExtras.filter(e => e.name !== extraName);
+        } else {
+            item.addedExtras.push({ name: extraName, price: extraPrice });
+        }
+        
+        // Atualizar subtotal em tempo real
+        const editorId = `editor-${itemName.replace(/\s+/g, '-')}`;
+        const editor = document.getElementById(editorId);
+        const subtotalElement = editor.querySelector('.editor-subtotal span');
+        subtotalElement.textContent = `Subtotal: R$ ${calculateItemPrice(item).toFixed(2).replace('.', ',')}`;
+    }
+
+    function cancelItemEdit(itemName) {
+        const editorId = `editor-${itemName.replace(/\s+/g, '-')}`;
+        const editor = document.getElementById(editorId);
+        editor.classList.add('hidden');
+        
+        // Resetar checkboxes para o estado atual do item
+        const item = cart.find(i => i.name === itemName);
+        const ingredientCheckboxes = editor.querySelectorAll('.ingredient-checkbox input');
+        const extraCheckboxes = editor.querySelectorAll('.extra-checkbox input');
+        
+        ingredientCheckboxes.forEach(checkbox => {
+            const ingredient = checkbox.parentElement.querySelector('span').textContent.trim();
+            checkbox.checked = !item.removedIngredients.includes(ingredient);
+        });
+        
+        extraCheckboxes.forEach(checkbox => {
+            const extraName = checkbox.parentElement.querySelector('span').textContent.trim();
+            checkbox.checked = item.addedExtras.some(e => e.name === extraName);
+        });
+    }
+
+    function applyItemEdit(itemName) {
+        const editorId = `editor-${itemName.replace(/\s+/g, '-')}`;
+        const editor = document.getElementById(editorId);
+        editor.classList.add('hidden');
+        updateCartUI();
+    }
+
+    function animateCartButton() {
+        const floatingCart = document.getElementById('floatingCart');
+        floatingCart.classList.add('shake');
+        setTimeout(() => {
+            floatingCart.classList.remove('shake');
+        }, 500);
+    }
+
+    function toggleCart() {
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        
+        cartSidebar.classList.toggle('open');
+        cartOverlay.classList.toggle('show');
+    }
+
+    function openCheckout() {
+        if (cart.length === 0) return;
+        
+        const checkoutModal = document.getElementById('checkoutModal');
+        const checkoutOverlay = document.getElementById('checkoutOverlay');
+        const summaryItems = document.getElementById('summaryItems');
+        const summaryTotal = document.getElementById('summaryTotal');
+        
+        // Atualizar resumo do pedido
+        const total = cart.reduce((sum, item) => sum + calculateItemPrice(item), 0);
+        summaryTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        
+        summaryItems.innerHTML = cart.map(item => `
+            <div class="summary-item">
+                <span>${item.quantity}x ${item.name}</span>
+                <span>R$ ${calculateItemPrice(item).toFixed(2).replace('.', ',')}</span>
+            </div>
+        `).join('');
+        
+        checkoutModal.classList.add('show');
+        checkoutOverlay.classList.add('show');
+        toggleCart(); // Fechar carrinho
+    }
+
+    function closeCheckout() {
+        const checkoutModal = document.getElementById('checkoutModal');
+        const checkoutOverlay = document.getElementById('checkoutOverlay');
+        
+        checkoutModal.classList.remove('show');
+        checkoutOverlay.classList.remove('show');
+    }
+
+    function selectPayment(method) {
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+        event.target.closest('.payment-option').classList.add('selected');
+    }
+
+    function confirmOrder() {
+        alert('Pedido confirmado! Em breve entraremos em contato para confirmar a entrega.');
+        cart = [];
+        updateCartUI();
+        closeCheckout();
+    }
+
+    // Inicializar carrinho
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartUI();
+    });
+</script>
+
+</body>
+</html>
